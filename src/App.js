@@ -13,19 +13,23 @@ function App() {
         setShortData(result.Grants.Grant)
   }
   fetchShortData()
-
-
-
-  
 }, [])
+
+  const copiedList = [... shortData]
+  const [useShortData, setuseShortData] = useState(copiedList.slice())
+
+  function USA(isForeign){
+    if(!isForeign){
+      setuseShortData(useShortData.filter((response) => response.InstCountry === "USA"))
+    }
+    else
+      setuseShortData(useShortData.filter((response) => response.InstCountry !== "USA"))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-
+        <button onClick = {() => USA(true)}>Click</button>
         <table>
       <thead>
       <tr>
@@ -40,7 +44,7 @@ function App() {
 
       </thead>
       <tbody>
-      {shortData.map((g) => (
+      {useShortData.map((g) => (
       <tr>
         <td key = {`${g.ProjectTitle}_${g.ProjectTitle}`}>{g.ProjectTitle}</td>
         <td key = {`${g.ProjectTitle}_${g.Institution}`}>{g.Institution}</td>
