@@ -8,9 +8,8 @@ function App() {
 
   useEffect(() => {
     async function fetchShortData(){
-    const response = await fetch("/NEH2020sGrant_Short.json")
+    const response = await fetch("/NEH2020sGrant.json")
       const result = await response.json()
-        console.log(result.Grants.Grant)
         setShortData(result.Grants.Grant)
   }
   fetchShortData()
@@ -37,10 +36,13 @@ function App() {
   }
 
   function yearSort(val){
-    if(val == "N")
+    console.log(val)
+    if(val == "N"){
       setuseShortData(useShortData.sort((a, b) => a.YearAwarded - b.YearAwarded))
-    if(val == "O")
+    }
+    if(val == "O"){
       setuseShortData(useShortData.sort((a, b) => b.YearAwarded - a.YearAwarded))
+    }
   }
 
   const handleChangeYR = (event) => {
@@ -50,28 +52,38 @@ function App() {
   function filtDiv(arr){
       let a = []
       for (let grant of shortData){
-        console.log(grant.Division, arr)
-        console.log(grant.Division in arr)
         if(grant){
           for(let i = 0; i<arr.length; i++){
             if(grant.Division == arr[i]){
               a.push(grant)
-              console.log('hi')
+              
               }
           }
         }
       }
-      setuseShortData(a)
+      if(a.length < 1)
+        setuseShortData(shortData)
+      else
+        setuseShortData(a)
   }
 
     const [div, setDiv] = useState([])
-    console.log(div);
 
     const handleChangeDiv = (event) => {
         let copy = [... div]
-        copy.push(event.target.value)
-        setDiv(copy)
-        filtDiv(copy)
+        let out = []
+        let t = true
+        for(let i = 0; i<copy.length; i++){
+          if(copy[i] == event.target.value)
+            t = false;
+          else
+            out.push(copy[i])
+        }
+        if(t){
+          out.push(event.target.value)
+        }
+        setDiv(out)
+        filtDiv(out)
   }
   return (
     <div className="App">
@@ -96,11 +108,11 @@ function App() {
         <form>
           <p>Select how you want it sorted</p>
           <label>
-            <input type = "radio" name = "YR" value = "N" onChange = {handleChangeDiv}/>
+            <input type = "radio" name = "YR" value = "N" onChange = {handleChangeYR}/>
             Oldest to Newest
           </label>
           <label>
-            <input type = "radio" name = "YR" value = "O" onChange = {handleChangeDiv}/>
+            <input type = "radio" name = "YR" value = "O" onChange = {handleChangeYR}/>
             Newest to Oldest
           </label>
         </form>
