@@ -43,6 +43,8 @@ function App() {
     if(val == "O"){
       setuseShortData(useShortData.sort((a, b) => b.YearAwarded - a.YearAwarded))
     }
+    else
+      setuseShortData(useShortData)
   }
 
   const handleChangeYR = (event) => {
@@ -85,6 +87,17 @@ function App() {
         setDiv(out)
         filtDiv(out)
   }
+
+  const handleChangeBorder = (event) => {
+      border(event.target.value)
+  }
+
+  function border(val){
+      if(val == "B")
+        setuseShortData(shortData.filter((response) => response.InstState === "IL" || response.InstState === "IN" || response.InstState === "OH" || response.InstState === "WV" ||response.InstState === "VA" || response.InstState === "TN" || response.InstState === "MO"))
+      else
+        setuseShortData(setShortData)
+    }
   return (
     <div className="App">
       <header className="App-header">
@@ -102,6 +115,18 @@ function App() {
           <label>
             <input type = "radio" name = "isForeign" value = "N" checked = {usaFilt === "N"} onChange = {handleChangeUS}/>
             Both
+          </label>
+        </form>
+
+        <form>
+          <p>View Border States</p>
+          <label>
+            <input type = "radio" name = "border" value = "B" onChange = {handleChangeBorder}/>
+            Border States
+          </label>
+          <label>
+            <input type = "radio" name = "border" value = "N" onChange = {handleChangeBorder}/>
+            All States
           </label>
         </form>
 
@@ -180,15 +205,15 @@ function App() {
       </thead>
       <tbody>
       {useShortData.map((g) => (
-      <tr>
-        <td key = {`${g.ProjectTitle}_${g.ProjectTitle}`}>{g.ProjectTitle}</td>
-        <td key = {`${g.ProjectTitle}_${g.Institution}`}>{g.Institution}</td>
-        <td key = {`${g.ProjectTitle}_${g.InstCountry}`}>{g.InstCountry}</td>
-        <td key = {`${g.ProjectTitle}_${g.InstState}`}>{g.InstState}</td>
-        <td key = {`${g.ProjectTitle}_${g.Division}`}>{g.Division}</td>
-        <td key = {`${g.ProjectTitle}_${g.PrimaryDiscipline}`}>{g.PrimaryDiscipline}</td>
-        <td key = {`${g.ProjectTitle}_${g.YearAwarded}`}>{g.YearAwarded}</td>
-      </tr>
+      <tr key = {g["@AppNumber"]}>
+       <td>{g.ProjectTitle}</td>
+       <td>{g.Institution}</td>
+       <td>{g.InstCountry}</td>
+       <td>{g.InstState}</td>
+       <td>{g.Division}</td>
+       <td>{g.PrimaryDiscipline}</td>
+       <td>{g.YearAwarded}</td>
+     </tr>
       ))}
       </tbody>
     </table>
