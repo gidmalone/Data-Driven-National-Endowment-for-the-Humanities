@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     async function fetchShortData(){
-    const response = await fetch("/NEH2020sGrant.json")
+    const response = await fetch("/NEH2020sGrant_Short.json")
       const result = await response.json()
         console.log(result.Grants.Grant)
         setShortData(result.Grants.Grant)
@@ -48,34 +48,30 @@ function App() {
   }
 
   function filtDiv(arr){
-      if("Preservation and Access" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Preservation and Access"))
-      if("Research Programs" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Research Programs"))
-      if("Public Programs" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Public Programs"))
-      if("Digital Humanities" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Digital Humanities"))
-      if("Education Programs" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Education Programs"))
-      if("Federal/State Partnership" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Federal/State Partnership"))
-      if("Agency-wide Projects" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Agency-wide Projects"))
-      if("Data and Evaluation" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Data and Evaluation"))
-      if("Challenge Programs" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Challenge Programs"))
-      if("Collections and Infrastructure" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Collections and Infrastructure"))
-      if("Lifelong Learning" in arr)
-        setuseShortData(shortData.filter((response) => response.Division == "Lifelong Learning"))
+      let a = []
+      for (let grant of shortData){
+        console.log(grant.Division, arr)
+        console.log(grant.Division in arr)
+        if(grant){
+          for(let i = 0; i<arr.length; i++){
+            if(grant.Division == arr[i]){
+              a.push(grant)
+              console.log('hi')
+              }
+          }
+        }
+      }
+      setuseShortData(a)
   }
-    let div = []
+
+    const [div, setDiv] = useState([])
     console.log(div);
+
     const handleChangeDiv = (event) => {
-        div.push(event.target.value)
-        filtDiv(div)
+        let copy = [... div]
+        copy.push(event.target.value)
+        setDiv(copy)
+        filtDiv(copy)
   }
   return (
     <div className="App">
@@ -84,15 +80,15 @@ function App() {
         <form>
           <p>Select if you want to see USA or foreign grants</p>
           <label>
-            <input type = "radio" name = "isForeign" value = "F" checked = {usaFilt === "F"} onChange = {handleChangeDiv}/>
+            <input type = "radio" name = "isForeign" value = "F" checked = {usaFilt === "F"} onChange = {handleChangeUS}/>
             Foreign
           </label>
           <label>
-            <input type = "radio" name = "isForeign" value = "U" checked = {usaFilt === "U"} onChange = {handleChangeDiv}/>
+            <input type = "radio" name = "isForeign" value = "U" checked = {usaFilt === "U"} onChange = {handleChangeUS}/>
             USA
           </label>
           <label>
-            <input type = "radio" name = "isForeign" value = "N" checked = {usaFilt === "N"} onChange = {handleChangeDiv}/>
+            <input type = "radio" name = "isForeign" value = "N" checked = {usaFilt === "N"} onChange = {handleChangeUS}/>
             Both
           </label>
         </form>
@@ -127,7 +123,7 @@ function App() {
             <input type = "checkbox" name = "div" value = "Digital Humanities" onChange = {handleChangeDiv}/>
             Digital Humanities
           </label><label>
-            <input type = "checkbox" name = "div" value = "Education Programs " onChange = {handleChangeDiv}/>
+            <input type = "checkbox" name = "div" value = "Education Programs" onChange = {handleChangeDiv}/>
             Education Programs 
           </label>
           <label>
@@ -135,7 +131,7 @@ function App() {
             Federal/State Partnership
           </label>
           <label>
-            <input type = "checkbox" name = "div" value = "Agency-wide Projects " onChange = {handleChangeDiv}/>
+            <input type = "checkbox" name = "div" value = "Agency-wide Projects" onChange = {handleChangeDiv}/>
             Agency-wide Projects 
           </label>
           <label>
@@ -143,25 +139,18 @@ function App() {
             Data and Evaluation
           </label>
           <label>
-            <input type = "checkbox" name = "div" value = "Challenge Programs " onChange = {handleChangeDiv}/>
-            Challenge Programs 
+            <input type = "checkbox" name = "div" value = "Challenge Programs" onChange = {handleChangeDiv}/>
+            Challenge Programs
           </label>
           <label>
             <input type = "checkbox" name = "div" value = "Collections and Infrastructure" onChange = {handleChangeDiv}/>
             Collections and Infrastructure
           </label>
           <label>
-            <input type = "checkbox" name = "div" value = "Lifelong Learning " onChange = {handleChangeDiv}/>
+            <input type = "checkbox" name = "div" value = "Lifelong Learning" onChange = {handleChangeDiv}/>
             Lifelong Learning 
           </label>
         </form>
-      
-
-        {/* <fieldset>
-
-        <button onClick = {() => USA(false)}>Click</button>
-        
-        </fieldset> */}
 
 
         <table>
