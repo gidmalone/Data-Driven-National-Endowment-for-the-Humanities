@@ -36,3 +36,89 @@
     transform: rotate(360deg);
   }
 }
+
+.App-header{
+  background-color:white
+}
+
+p, label, th, td, h1 {
+  color: black;
+  font-size: 15pt;
+  text-align: center;
+}
+
+
+
+.Widgets{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 20px;
+}
+.Reset{
+  margin-bottom: 50px;
+  padding: 15px 30px 15px 30px;
+  font-size: 17pt;
+  border: 0px;
+  background-color: rgb(171, 219, 236);
+}
+form{
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+#usa,#ky{
+  display: flex;
+  flex-direction: column;
+}
+
+h1{
+  background-color: rgb(171, 219, 236);
+  background-size: 100%;
+  padding: 80px 40% 80px 40%;
+  font-size: 40pt;
+}
+
+
+table{
+  display: flex;
+  flex-direction: column;
+  padding: 0px 50px 0px 50px;
+}
+
+td{
+  /*position:relative;*/
+  padding: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+th{
+  /*position:absolute;*/
+  padding-bottom: 30px;
+}
+
+thead tr{
+  display:flex;
+  justify-content: space-evenly;
+}
+tbody tr{
+  padding: 0px;
+  display:flex;
+  justify-content: space-evenly;
+}
+
+tbody tr:nth-child(odd){
+  display: flex;
+  background-color: rgb(130, 147, 163);
+}
+
+tbody tr:nth-child(even){
+  display: flex;
+  background-color: rgb(171, 219, 236);
+}
+
+tbody tr td{ 
+  display: flex;
+  flex-basis: 5%;
+}
