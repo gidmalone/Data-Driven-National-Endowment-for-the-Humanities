@@ -59,7 +59,7 @@ p, label, th, td, h1 {
   padding: 15px 30px 15px 30px;
   font-size: 17pt;
   border: 0px;
-  background-color: rgb(171, 219, 236);
+  background-color: rgb(192, 238, 255);
 }
 form{
   display: flex;
@@ -73,7 +73,7 @@ form{
 }
 
 h1{
-  background-color: rgb(171, 219, 236);
+  background-color: rgb(192, 238, 255);
   background-size: 100%;
   padding: 80px 40% 80px 40%;
   font-size: 40pt;
@@ -110,12 +110,12 @@ tbody tr{
 
 tbody tr:nth-child(odd){
   display: flex;
-  background-color: rgb(130, 147, 163);
+  background-color: rgb(192, 238, 255);
 }
 
 tbody tr:nth-child(even){
   display: flex;
-  background-color: rgb(171, 219, 236);
+  background-color: white;
 }
 
 tbody tr td{ 
